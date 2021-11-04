@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -8,6 +9,9 @@ namespace ValidationSample.Controllers
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
+
+        private static String _currentInstanceStatic { get; set; } = Guid.NewGuid().ToString();
+        private String _currentInstance { get; set; } = Guid.NewGuid().ToString();
 
         public UsersController(IUserService userService)
         {
@@ -30,8 +34,14 @@ namespace ValidationSample.Controllers
         }
         #endregion
 
-        public IActionResult CheckName() =>
-            View();
+        public IActionResult CheckName()
+        {
+            ViewData["ThreadId"] = System.Environment.CurrentManagedThreadId;
+            ViewData["CurrentInstanceStatic"] = UsersController._currentInstanceStatic;
+            ViewData["CurrentInstance"] = _currentInstance;
+            return View();
+        
+        }
 
         #region snippet_VerifyName
         [AcceptVerbs("GET", "POST")]
