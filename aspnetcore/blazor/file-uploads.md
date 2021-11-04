@@ -743,6 +743,8 @@ In Blazor Server, file data is streamed over the SignalR connection into .NET co
 
 ## Additional resources
 
+* <xref:blazor/file-downloads>
+* <xref:blazor/images>
 * <xref:mvc/models/file-uploads#security-considerations>
 * <xref:blazor/forms-validation>
 
